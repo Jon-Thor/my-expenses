@@ -23,7 +23,7 @@ const App =() => {
   
   return (
     <div className="App">
-      <p >Submitted Value: {JSON.stringify(displayValue)}</p>
+      <p >Submitted Value: [{displayValue.toString()}]</p>
         <p>
           Sum cost: {count}
         </p>

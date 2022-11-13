@@ -10,13 +10,17 @@ const App =() => {
   const inputvalue = useRef("");
   const number = useRef(0)
 
+  const totalnum = useRef([0])
+
   const handleClick = () => {
 
     setDisplayValue(displayValue.concat(inputvalue.current))
 
     setCount(count + parseInt(number.current));	
-	};
 
+    totalnum.current.push(number.current)
+	};
+  
   return (
     <div className="App">
       <p >Submitted Value: {JSON.stringify(displayValue)}</p>
@@ -60,6 +64,13 @@ const App =() => {
         >
         Submit
         </button>
+
+        <button type='button' className='submitButton'
+        onClick={() => {
+          setCount(count - totalnum.current.pop())
+         setDisplayValue(displayValue.slice(0,-1)) 
+        }}
+        >Remove from list</button>
         </div>
     </div>
     

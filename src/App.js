@@ -1,24 +1,68 @@
-import logo from './logo.svg';
+import { useRef, useState } from 'react';
 import './App.css';
 
-function App() {
+
+
+const App =() => {
+  const [count, setCount] = useState(0);
+  const [displayValue, setDisplayValue] = useState([]);
+
+  const inputvalue = useRef("");
+  const number = useRef(0)
+
+  const handleClick = () => {
+
+    setDisplayValue(displayValue.concat(inputvalue.current))
+
+    setCount(count + parseInt(number.current));	
+	};
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <p >Submitted Value: {JSON.stringify(displayValue)}</p>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Sum cost: {count}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+
+ 
+        <div className='container'>
+        
+        <label className='labels'>Name:</label>
+        
+        <input
+
+        className='inputTag'
+
+        onChange={(event) =>{
+          inputvalue.current = event.target.value;
+        
+        }}
+        />
+         
+      
+
+        
+          <label className='labels'> Cost:</label>
+           
+        <input
+        className='inputTag'
+        type={"number"}
+        onChange={(event) => {
+          number.current = event.target.value
+        }}
+        />
+        
+        <button type='button' className='submitButton'
+                onClick={() => {
+                  if(number.current != 0 && inputvalue.current.length > 0){
+                  handleClick() 
+                }}}
         >
-          Learn React
-        </a>
-      </header>
+        Submit
+        </button>
+        </div>
     </div>
+    
   );
 }
 

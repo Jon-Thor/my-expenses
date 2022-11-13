@@ -20,6 +20,8 @@ const App =() => {
 
     totalnum.current.push(number.current)
 	};
+
+  console.log(totalnum.current)
   
   return (
     <div className="App">
@@ -67,9 +69,12 @@ const App =() => {
 
         <button type='button' className='submitButton'
         onClick={() => {
+          if(totalnum.current.length > 0){
           setCount(count - totalnum.current.pop())
          setDisplayValue(displayValue.slice(0,-1)) 
-        }}
+        }else{}
+      
+      }}
         >Remove from list</button>
         </div>
     </div>

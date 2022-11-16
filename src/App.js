@@ -176,6 +176,7 @@ margin: 10px;
 font-size: larger;
 color: red;
 border: 0px;
+cursor: pointer;
 `
 const SubmitButton = styled.button`
 margin-top: 20px;

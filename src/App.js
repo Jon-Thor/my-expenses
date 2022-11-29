@@ -1,8 +1,11 @@
-import { useRef, useState } from 'react';
-import './App.css';
-import styled from 'styled-components'
+import { useState, useRef, useEffect } from 'react'
+import styled, { css, keyframes } from 'styled-components'
+import './App.css'
+import { v4 as uuid } from 'uuid'
+import Expense from './Cat'
 
 const App =() => {
+  
   
   //const [count, setCount] = useState(0);
   const [displayValue, setDisplayValue] = useState([]);
@@ -12,98 +15,22 @@ const App =() => {
 
   const totalnum = useRef([])
 
-  /*const handleClick = () => {
-
-    setDisplayValue(displayValue.concat(inputvalue.current))
-
-    setCount(count + parseInt(number.current));	
-
-    totalnum.current.push(number.current)
-	};*/
 
   const newHandleClick = () => {
     setDisplayValue((list) => [
       ...list,
-      { name: inputvalue.current, value: number.current },
+      { name: inputvalue.current, value: number.current, key: uuid()},
     ])
     totalnum.current.push(number.current)
   }
 
-  
 
   console.log(displayValue)
   
   return (
-
       <Container>
+        <div><Expense /></div>
 
-
-
-      <InputContainer>
-        <p>Sum cost: {displayValue.reduce(
-            (previousValue, currentValue) =>
-              previousValue + Number(currentValue.value),
-            0
-          )}
-        </p>
-        <p>Count: {displayValue.length}</p>
-        
-        
-        <Labels>Name:</Labels>
-        
-        <InputTag
-
-        onChange={(event) =>{
-          inputvalue.current = event.target.value;
-        
-        }}
-        />
-         
-          <Labels> Cost:</Labels>
-           
-        <InputTag
-        type={"number"}
-        onChange={(event) => {
-          number.current = event.target.value
-        }}
-        />
-        
-        <SubmitButton type='button' className='submitButton'
-                onClick={() => {
-                  if(number.current != 0 && inputvalue.current.length > 0){
-                  //handleClick() 
-                  newHandleClick()
-                }}}
-        >
-        Submit
-        </SubmitButton>
-
-        <SubmitButton type='button' className='submitButton'
-        onClick={() => {
-          if(totalnum.current.length > 0){
-         totalnum.current.pop()
-         setDisplayValue(displayValue.slice(0,-1)) 
-        }else{}
-      
-      }}
-        >Remove last from list</SubmitButton>
-    </InputContainer>
-
-
-    <div>
-      {displayValue.map((item,index) => (
-        <Card key={index}>
-          <InnderCard>
-        <Smallcontainer>Item: {item.name}</Smallcontainer>
-        <Smallcontainer>Cost: {item.value} </Smallcontainer>
-        </InnderCard>
-        <RemoveButton onClick={() =>   {
-          const displaydata = [...displayValue]
-          displaydata.splice(index,1)
-          setDisplayValue(displaydata)
-          
-        }}>X</RemoveButton></Card>
-      ))}</div>
 
     </Container>
 
@@ -184,5 +111,68 @@ height: 50px;
 font-size: large;
 font-weight: bold;
 `
+
+      /*<InputContainer>
+        <p>Sum cost: {displayValue.reduce(
+            (previousValue, currentValue) =>
+              previousValue + Number(currentValue.value),
+            0
+          )}
+        </p>
+        <p>Count: {displayValue.length}</p>
+        
+        
+        <Labels>Name:</Labels>
+        
+        <InputTag
+
+        onChange={(event) =>{
+          inputvalue.current = event.target.value;
+        
+        }}
+        />
+         
+          <Labels> Cost:</Labels>
+           
+        <InputTag
+        type={"number"}
+        onChange={(event) => {
+          number.current = event.target.value
+        }}
+        />
+        
+        <SubmitButton type='button' className='submitButton'
+                onClick={() => {
+                  if(number.current != 0 && inputvalue.current.length > 0){
+                  newHandleClick()
+                }}}
+        >
+        Submit
+        </SubmitButton>
+
+        <SubmitButton type='button' className='submitButton'
+        onClick={() => {
+          if(totalnum.current.length > 0){
+         totalnum.current.pop()
+         setDisplayValue(displayValue.slice(0,-1)) 
+        }else{}
+      
+      }}
+        >Remove last from list</SubmitButton>
+    </InputContainer>
+
+
+    <div>
+      {displayValue.map((item) => (
+        <Card key={item.key}>
+          <InnderCard>
+        <Smallcontainer>Item: {item.name} </Smallcontainer>
+        <Smallcontainer>Cost: {item.value} </Smallcontainer>
+        </InnderCard>
+        <RemoveButton onClick={() =>   {
+          setDisplayValue((li) => li.filter((i) => i.key !== item.key))
+          
+        }}>X</RemoveButton></Card>
+      ))}</div>*/
 
 export default App;
